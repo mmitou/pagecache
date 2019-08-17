@@ -26,6 +26,6 @@ func MyRead(readerAt io.ReaderAt, buf []byte) (int, error) {
 	numOfPage := int64(10)
 	off := int64(0)
 	pcache := pagecache.NewReaderAtSize(readerAt, pageSize, numOfPage)
-	p.ReadAt(buf, off)
+	return p.ReadAt(buf, off)
 }
 ```
