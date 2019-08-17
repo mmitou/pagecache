@@ -2,8 +2,8 @@ package gcsreader
 
 import (
 	"context"
-	"io"
 	"fmt"
+	"io"
 
 	"cloud.google.com/go/storage"
 	"github.com/pkg/errors"

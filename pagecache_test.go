@@ -16,9 +16,9 @@ func TestReadAt(t *testing.T) {
 	readSize := 256
 	p := make([]byte, readSize)
 	q := make([]byte, readSize)
-	for i := 0; bufsize < i * readSize; i++ {
-		m, err := r.ReadAt(p, int64(readSize * i))
-		n, frr := s.ReadAt(q, int64(readSize * i))
+	for i := 0; bufsize < i*readSize; i++ {
+		m, err := r.ReadAt(p, int64(readSize*i))
+		n, frr := s.ReadAt(q, int64(readSize*i))
 		if m != n {
 			t.Errorf("%d != %d", m, n)
 		}
