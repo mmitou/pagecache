@@ -1,8 +1,8 @@
 pagecache
 =========
 
-pagecache is a cache layer that wraps io.ReaderAt by page cache.
-pagecache implements io.ReaderAt interface, reads the wrapped underlayer by page, and manages the pages by page table.
+pagecache is a cache layer that wraps io.ReaderAt by page cache.<br />
+pagecache implements io.ReaderAt interface, reads the wrapped underlayer by page, and manages the pages by page table.<br />
 to specify proper page size and number of pages, a program which has to run in severe memory environment may be able to read a file sizes over memory.
 
 ## usage 
