@@ -27,7 +27,7 @@ func MyRead(readerAt io.ReaderAt, buf []byte) (int, error) {
 }
 ```
 
-## Example: unzip a big zip file in google cloud storage by google cloud functions and go.
+## Example: unzip a big zip file in google cloud storage with google cloud functions and go.
 
 ### 1. checkout pagecache sample code
 
