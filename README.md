@@ -4,7 +4,7 @@ pagecache
 - provides a cache layer that wraps object which also implements io.ReaderAt by page cache.
 - implements io.ReaderAt interface.
 - reads the wrapped underlayer by page.
-- manages the pages by page table.
+- manages the pages with page table.
 - drops a page by LRU(Least Recently Used) when the page table is full.
  
 ## usage 
