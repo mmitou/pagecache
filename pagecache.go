@@ -1,3 +1,5 @@
+// pagecache provides a cache layer by page cache.
+// it wraps io.ReadAt object, creating another io.ReaderAt object .
 package pagecache
 
 import (
@@ -26,6 +28,11 @@ type PageTable struct {
 type PageCache struct {
 	ra        io.ReaderAt
 	pageTable *PageTable
+}
+
+// ReaderAt implments io.ReaderAt
+type ReaderAt interface {
+	io.ReaderAt
 }
 
 func (pt *PageTable) get(i int64) (*Page, error) {
@@ -108,6 +115,9 @@ func (c *PageCache) page(pageIndex int64) (*Page, error) {
 	return p, nil
 }
 
+// ReadAt reads len(b) bytes from the the wrapped io.ReaderAt object starting at byte offset off.
+// It returns the number of bytes read and the error, if any. 
+// ReadAt always returns a non-nil error when n < len(b). At end of file, that error is io.EOF.
 func (c *PageCache) ReadAt(b []byte, off int64) (int, error) {
 	if off < 0 {
 		return 0, InvalidArg
@@ -152,7 +162,8 @@ func (c *PageCache) ReadAt(b []byte, off int64) (int, error) {
 	return n, nil
 }
 
-func NewReaderAtSize(ra io.ReaderAt, pageSize, pageTableSize int64) (io.ReaderAt, error) {
+// NewReaderAtSize returns a new ReaderAt whose cache has at least the specified page size * pageTableSize size.
+func NewReaderAtSize(ra io.ReaderAt, pageSize, pageTableSize int64) (ReaderAt, error) {
 	if pageSize < 1 || pageTableSize < 2 {
 		return nil, InvalidArg
 	}

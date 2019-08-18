@@ -1,3 +1,5 @@
+// gcsreader implements io.ReaderAt.
+// it wraps file object in google cloud storage.
 package gcsreader
 
 import (
@@ -15,6 +17,7 @@ type GCSObject struct {
 	attrs *storage.ObjectAttrs
 }
 
+// Reader implements io.Reader, io.ReaderAt and Size interface
 type Reader interface {
 	io.Reader
 	io.ReaderAt
@@ -27,6 +30,7 @@ var (
 	ErrNegativeOffset = errors.New("gcs.Reader.ReadAt: negative offset")
 )
 
+// Read reads data into p. It returns the number of bytes read into p.
 func (g *GCSObject) Read(p []byte) (int, error) {
 	r, err := g.o.NewReader(g.ctx)
 	if err != nil {
@@ -38,6 +42,8 @@ func (g *GCSObject) Read(p []byte) (int, error) {
 	return n, errors.Wrap(err, "gcsreader.Reader.Read: storage.Reader.Read failed")
 }
 
+// ReadAt reads len(b) bytes from the storage.ObjectHandle starting at byte offset off.
+// It returns the number of bytes read and the error, if any. ReadAt always returns a non-nil error when n < len(b). At end of file, that error is io.EOF.
 func (g *GCSObject) ReadAt(b []byte, off int64) (int, error) {
 	if off < 0 {
 		return 0, ErrNegativeOffset
@@ -86,10 +92,12 @@ func (g *GCSObject) ReadAt(b []byte, off int64) (int, error) {
 	return n, nil
 }
 
+// Size returns the size of file in google cloud storage.
 func (g *GCSObject) Size() int64 {
 	return g.attrs.Size
 }
 
+// NewReader returns a new Reader. it wraps storage.ObjectHandle.
 func NewReader(ctx context.Context, o *storage.ObjectHandle) (Reader, error) {
 	attrs, err := o.Attrs(ctx)
 	if err != nil {
