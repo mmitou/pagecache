@@ -1,7 +1,7 @@
 pagecache
 =========
 
-- may be useful under conditions that there is not sufficient memory like aws lambda, google cloud functions and so on.
+- may be useful under conditions that there is not sufficient memory.
 - provides a cache layer that wraps object which also implements io.ReaderAt by page cache.
 - implements io.ReaderAt interface.
 - reads the wrapped underlayer by page.
