@@ -42,7 +42,7 @@ func Unzip(ctx context.Context, e GCSEvent) error {
 		return err
 	}
 
-	cra, err := NewReaderAtSize(g, 1048576, 10)
+	cra, err := NewReaderAt(g, 1048576, 10)
 	if err != nil {
 		return err
 	}

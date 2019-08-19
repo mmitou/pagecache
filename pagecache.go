@@ -162,8 +162,8 @@ func (c *PageCache) ReadAt(b []byte, off int64) (int, error) {
 	return n, nil
 }
 
-// NewReaderAtSize returns a new ReaderAt whose cache has at least the specified page size * pageTableSize size.
-func NewReaderAtSize(ra io.ReaderAt, pageSize, pageTableSize int64) (ReaderAt, error) {
+// NewReaderAt returns a new ReaderAt whose cache has at least the specified page size * pageTableSize size.
+func NewReaderAt(ra io.ReaderAt, pageSize, pageTableSize int64) (ReaderAt, error) {
 	if pageSize < 1 || pageTableSize < 2 {
 		return nil, InvalidArg
 	}

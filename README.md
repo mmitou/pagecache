@@ -22,7 +22,7 @@ func MyRead(readerAt io.ReaderAt, buf []byte) (int, error) {
 	pageSize := int64(1024)
 	maxNumOfPages := int64(10)
 	off := int64(0)
-	pcache := pagecache.NewReaderAtSize(readerAt, pageSize, maxNumOfPages)
+	pcache := pagecache.NewReaderAt(readerAt, pageSize, maxNumOfPages)
 	return p.ReadAt(buf, off)
 }
 ```
@@ -48,7 +48,7 @@ func Unzip(ctx context.Context, e GCSEvent) error {
 		return err
 	}
 
-	cra, err := NewReaderAtSize(g, 1048576, 10)
+	cra, err := NewReaderAt(g, 1048576, 10)
 	if err != nil {
 		return err
 	}

@@ -11,7 +11,7 @@ func TestReadAt(t *testing.T) {
 	buffer := make([]byte, bufsize)
 	rand.Read(buffer)
 	r := bytes.NewReader(buffer)
-	s, _ := NewReaderAtSize(r, 1024, 100)
+	s, _ := NewReaderAt(r, 1024, 100)
 
 	readSize := 256
 	p := make([]byte, readSize)
